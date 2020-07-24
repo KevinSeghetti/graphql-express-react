@@ -1,6 +1,6 @@
                                    const express = require('express');
 const cors = require('cors');
-const graphqlHTTP = require('express-graphql');
+const { graphqlHTTP } = require('express-graphql');
 const gql = require('graphql-tag');
 const { buildASTSchema } = require('graphql');
 
@@ -38,11 +38,15 @@ const root = {
   posts: () => POSTS.map(mapPost),
   post: ({ id }) => mapPost(POSTS[id], id),
   submitPost: ({ input: { id, author, body } }) => {
+    console.log("submitPost:",id,author,body)
+    console.log("posts:",POSTS)
     const post = { author, body };
     let index = POSTS.length;
 
     if (id != null && id >= 0 && id < POSTS.length) {
-      if (POSTS[id].authorId !== authorId) return null;
+
+
+      //if (POSTS[id].id !== id) return null;
 
       POSTS.splice(id, 1, post);
       index = id;
